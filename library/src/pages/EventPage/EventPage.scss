@@ -21,3 +21,33 @@
     width: 100%;
   }
 }
+
+.event-info {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  background-color: var(--white);
+  border-radius: var(--radius);
+}
+
+.event-info_label {
+  color: var(--grey500);
+}
+
+.event-info_value {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.event-info_title {
+  margin-top: 25px;
+}
+
+.event-info_desc {
+  margin-top: 10px;
+}
+
+.event_sign {
+  margin-top: 30px;
+}

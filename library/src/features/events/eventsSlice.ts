@@ -88,17 +88,13 @@ export const toggleEventSignup = createAsyncThunk(
   async (eventId: string, { getState, rejectWithValue }) => {
     try {
       const state = getState() as { events: EventsState };
-
-      const allEvents = [
-        ...state.events.actualEvents,
-        ...state.events.passedEvents,
-      ];
-
-      const event = allEvents.find(e => e.id === eventId);
+      
+      const event = state.events.selectedEvent || 
+                   [...state.events.actualEvents, ...state.events.passedEvents].find(e => e.id === eventId);
+      
       if (!event) throw new Error("Событие не найдено");
 
       const enable = !event.user_signed_up;
-
       const res = await api.post(`/events/${eventId}/switch_signup/`, { enable });
 
       return { id: eventId, user_signed_up: enable, ...res.data };
@@ -214,6 +210,10 @@ const eventsSlice = createSlice({
         
         if (state.userPassedEvents) {
           state.userPassedEvents = removeFromUserEvents(state.userPassedEvents);
+        }
+
+        if (state.selectedEvent && state.selectedEvent.id === id) {
+          state.selectedEvent.user_signed_up = user_signed_up;
         }
       })
       .addCase(toggleEventSignup.rejected, (state, action) => {
