@@ -1,11 +1,27 @@
 from rest_framework import serializers
 from .models import Author, Book, Genre
+from manager.models import BookTakeout
 
 class BookSerializer(serializers.ModelSerializer):
+    in_wishlist = serializers.SerializerMethodField('get_in_wishlist')
+    readed = serializers.SerializerMethodField('get_readed')
+
     class Meta:
         model = Book
-        exclude = ('created_at', 'wishlists')
+        fields = ('id', 'title', 'authors', 'genres', 'description', 'image', 'in_wishlist', 'readed')
         read_only_fields = ('id', 'wishlists')
+
+    def get_readed(self, obj):
+        user = self.context['request'].user
+        if user.is_anonymous:
+            return False
+        return BookTakeout.objects.filter(user=user).filter(book=obj).exclude(return_date=None).exists()
+
+    def get_in_wishlist(self, obj):
+        user = self.context['request'].user
+        if user.is_anonymous:
+            return False
+        return user.wishlist.contains(obj)
 
     def validate_authors_field(self, value):
         if not value:

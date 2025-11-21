@@ -8,4 +8,4 @@ class Event(UUIDModel):
     #tags/category/genre idk
     title = models.CharField("Название", max_length=100, null=False)
     spots = models.IntegerField("Количество мест", null=False)
-    # img = models.ImageField("Картинка", upload_to="events", null=False)
+    image = models.ImageField("Картинка", upload_to="events", null=False)

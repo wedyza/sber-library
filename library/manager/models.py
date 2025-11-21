@@ -20,7 +20,7 @@ class BookTakeout(UUIDModel):
     )
     start_date = models.DateField("Дата взятия", null=False)
     return_date = models.DateField("Дата возврата", null=True)
-    returned = models.BooleanField("Возвращено", default=False)
+    # returned = models.BooleanField("Возвращено", default=False)
     comment = models.TextField("Комментарий", null=True, max_length=500)
     # extended = models.BooleanField("Продлено", default=False)
 

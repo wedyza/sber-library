@@ -8,7 +8,7 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         # exclude = ('participants',)
-        fields = ('id', 'description', 'title', 'spots', 'spots_left', 'time', 'user_signed_up') # тут добавить left_spots
+        fields = ('id', 'description', 'title', 'spots', 'spots_left', 'time', 'user_signed_up', 'image') # тут добавить left_spots
         read_only_fields = ('id',)
 
     def get_spots_left(self, obj):
