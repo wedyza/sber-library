@@ -1,0 +1,90 @@
+.event-card {
+  background-color: var(--white);
+  border-radius: var(--radius);
+  padding: 15px 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.event-card_info-btn {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.event-card_main {
+  display: flex;
+  gap: 16px;
+}
+
+.event-card_info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-right: 15px;
+  flex: 1;
+  min-width: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.event-card_info-item {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.event-card_info-item__value {
+  color: var(--blue600);
+}
+
+.event-card_btn-signup {
+  height: 50px;
+  width: 100%;
+  color: var(--blue600);
+  border: 1px solid var(--blue600);
+  border-radius: var(--radius);
+}
+
+.event-card_img {
+  width: 153px;
+  height: 135px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.event-card_btns {
+  margin-top: auto;
+}
+
+.event-card_signed {
+  display: flex;
+  height: 50px;
+  gap: 6px;
+}
+
+.event-card_signed-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  flex: 1;
+  color: var(--blue600);
+  border: 1px solid var(--blue600);
+  border-radius: var(--radius);
+}
+
+.event-card_btn-cancel {
+  border: 1px solid var(--red);
+  border-radius: var(--radius);
+  width: 50px;
+}

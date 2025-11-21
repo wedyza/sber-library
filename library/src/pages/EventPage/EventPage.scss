@@ -1,0 +1,23 @@
+.events_back {
+  display: flex;
+  gap: 9px;
+  margin-left: 9px;
+  align-items: center;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+.event-imgs {
+  margin-top: 30px;
+}
+
+.event-img {
+  width: 100%;
+  aspect-ratio: 17 / 15;
+  object-fit: cover;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+  }
+}

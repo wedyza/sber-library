@@ -1,0 +1,49 @@
+.page-login {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--header-height));
+  padding-bottom: 20px;
+}
+
+.login_title {
+  margin-top: 136px;
+}
+
+.login_inputs {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login_input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login_input {
+  background-color: var(--white2);
+  padding: 0 22px;
+  height: 50px;
+  border-radius: var(--radius);
+}
+
+.login_btn {
+  margin-top: 25px;
+  margin-bottom: 20px;
+}
+
+.login_to-reg {
+  margin-top: auto;
+  display: flex;
+  height: 22px;
+  gap: 5px;
+}
+
+.login_to-reg__link,
+.login_to-reg__link:visited {
+  color: var(--blue600);
+
+  border-bottom: 1px solid var(--blue600);
+}

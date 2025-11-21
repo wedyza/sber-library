@@ -1,0 +1,142 @@
+:root {
+  --black-r: #000;
+  --white: #fff;
+  --white2: #EDEEEF;
+
+  --grey950: #262626;
+  --grey900: #3A3C3F;
+  --grey800: #414449;
+  --grey700: #4A4F54;
+  --grey600: #6C757D;
+  --grey500: #6C757D;
+  --grey400: #808990;
+  --grey300: #AAB0B6;
+  --grey200: #CDD1D4;
+  --grey100: #E5E7E8;
+  --grey50: #F5F6F6;
+
+  --blue950: #11295A;
+  --blue900: #144194;
+  --blue800: #1149BC;
+  --blue700: #0C5AE9;
+  --blue600: #0D6EFD;
+  --blue500: #2A91FF;
+  --blue400: #52B4FF;
+  --blue300: #89CFFF;
+  --blue200: #B9E0FF;
+  --blue100: #D8EEFF;
+  --blue50: #EEF8FF;
+
+  --pink: #F9A8B9;
+  --red: #D7342B;
+  --yellow: #FBE576;
+  --green: #A2D3A7;
+
+  --header-height: 65px;
+  --nav-height: 75px;
+  --padding: 10px;
+  --radius: 10px;
+}
+
+body {
+  font-family: 'Wix Madefor Display';
+  background-color: var(--grey50);
+}
+
+.user-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  height: auto;
+}
+
+.page-content {
+  padding: 0 var(--padding);
+  padding-bottom: calc(var(--nav-height) + 60px);
+  padding-top: var(--header-height);
+}
+
+.text-h1 {
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 135%;
+  letter-spacing: 0px;
+}
+
+.med-12 {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 135%;
+}
+
+.med-14 {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 135%;
+  letter-spacing: 0px;
+}
+
+.med-20 {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 135%;
+}
+
+.reg-12 {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 135%;
+}
+
+.reg-16 {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 135%;
+  letter-spacing: 0px;
+}
+
+.semibold-10 {
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 135%;
+}
+
+.semibold-14 {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 135%;
+}
+
+.semibold-16 {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 135%;
+}
+
+.semibold-18 {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 135%;
+  letter-spacing: 0px;
+}
+
+.bold-28 {
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 135%;
+}
+
+
+
+
+
+.btn-accent {
+  background-color: var(--blue600);
+  border-radius: var(--radius);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 135%;
+  height: 50px;
+  flex-shrink: 0;
+}
