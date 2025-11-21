@@ -112,3 +112,10 @@
   flex-direction: column;
   gap: 10px;
 }
+
+.main-books_list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 38px;
+  margin-top: 36px;
+}

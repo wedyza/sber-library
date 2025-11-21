@@ -1,0 +1,34 @@
+.book-card {
+  position: relative;
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-card_cover {
+  width: 140px;
+  height: 197px;
+    overflow: hidden;
+    object-fit: cover;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.book-card_fav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+}
+
+.book-card_title {
+  margin-top: 10px;
+}
+
+.book-card_author {
+  color: var(--grey500);
+  margin-top: 5px;
+}
