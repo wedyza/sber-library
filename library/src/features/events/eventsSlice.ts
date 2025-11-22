@@ -9,6 +9,7 @@ export interface EventItem {
   description: string;
   time: string;
   user_signed_up: boolean;
+  address?: string;
 }
 
 interface EventsState {

@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import { fetchUserInfo } from './features/user/userSlice'
 import EventsPage from './pages/EventsPage/EventsPage'
 import EventPage from './pages/EventPage/EventPage'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   const token = useAppSelector(state => state.auth.token)
@@ -25,9 +26,11 @@ function App() {
   return (
     <Routes>
       <Route element={<UserLayout />}>
+      <Route element={<ProtectedRoute allowedRoles={['Читатель']} />}>
         <Route path="/" element={<MainPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/event/:id" element={<EventPage />} />
+      </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/verify-code" element={<VerifyPage />} />

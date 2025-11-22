@@ -43,6 +43,17 @@ body {
   background-color: var(--grey50);
 }
 
+body {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+@supports (overflow-x: clip) {
+  body {
+    overflow-x: clip;
+  }
+}
+
 .user-page {
   display: flex;
   flex-direction: column;
@@ -53,6 +64,17 @@ body {
 .page-content {
   padding: 0 var(--padding);
   padding-bottom: calc(var(--nav-height) + 60px);
+  padding-top: var(--header-height);
+}
+
+.page-content {
+  padding: 0 var(--padding);
+  padding-bottom: calc(var(--nav-height) + 60px);
+  padding-top: var(--header-height);
+}
+
+.page-login-content {
+  padding: 0 var(--padding);
   padding-top: var(--header-height);
 }
 
