@@ -16,6 +16,8 @@ from django.utils.timezone import timedelta
 import django
 import urllib3
 from django.utils.encoding import force_str
+import warnings
+warnings.filterwarnings("ignore", category=RuntimeWarning)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -56,6 +58,7 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     'books.apps.BooksConfig',
     'manager.apps.ManagerConfig',
+    'coworking.apps.CoworkingConfig'
 ]
 
 MIDDLEWARE = [
@@ -103,7 +106,7 @@ DATABASES = {
         "USER": os.getenv("POSTGRES_USER"),
         "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
         "HOST": "localhost" if not CONTAINER_LAUNCHER else "db",
-        "PORT": os.getenv("DB_PORT"),
+        "PORT": os.getenv("DB_PORT") if not CONTAINER_LAUNCHER else "5432",
     }
 }
 

@@ -27,8 +27,8 @@ class CustomTokenCreateSerializer(TokenCreateSerializer):
 class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("email", "first_name", "last_name", "middle_name", "birth_date")
-        required = ("email", "first_name", "last_name", "birth_date")
+        fields = ("email", "first_name", "last_name")
+        required = ("email", "first_name", "last_name")
 
 
 class UserLoginOTPSerializer(serializers.Serializer):
@@ -42,4 +42,5 @@ class UserLoginSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("email", "first_name", "last_name", "middle_name", "avatar", "user_type", "lib_code")
+        fields = ("email", "first_name", "last_name", "avatar", "user_type", "lib_code")
+        read_only = ('email', 'lib_code')

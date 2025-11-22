@@ -1,9 +1,7 @@
 from api.models import UUIDModel
 from django.db import models
-from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator
-
-User = get_user_model()
+from users.models import CustomAbstractUser
 
 
 # Create your views here.
@@ -34,13 +32,12 @@ class Book(UUIDModel):
         verbose_name="Жанры"
     )
     wishlists = models.ManyToManyField(
-        User,
+        CustomAbstractUser,
         related_name="wishlist",
-        related_query_name="wishlists",
         verbose_name="В избранном"
     )
     description = models.TextField("Описание", max_length=400, null=True)
-    image = models.ImageField("Изображение", upload_to="books", null=False)
+    image = models.ImageField("Изображение", upload_to="books", null=True)
     age_cap = models.IntegerField("Ограничение по возрасту", null=False, default=0)
     pub_date = models.DateField("Дата издания", null=True)
     # remains ???
@@ -48,7 +45,7 @@ class Book(UUIDModel):
 class Feedback(UUIDModel):
     body = models.TextField("Тело отзыва", max_length=1000, null=False)
     user = models.ForeignKey(
-        User,
+        CustomAbstractUser,
         on_delete=models.CASCADE,
         verbose_name="Автор",
         related_name="feedbacks"

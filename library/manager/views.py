@@ -4,15 +4,20 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from django.contrib.auth import get_user_model
 from rest_framework import views, viewsets, permissions, status, mixins
-from .serializers import BookTakeoutSerializer
+from .serializers import BookTakeoutCreateSerializer, BookTakeoutSerializer
 from users.models import CustomAbstractUser as User
 from .models import BookTakeout
 from django.utils import timezone
 from datetime import timedelta
 
-class BookTakeoutViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin, mixins.UpdateModelMixin):
+class BookTakeoutViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin):
     serializer_class = BookTakeoutSerializer
     permission_classes = (permissions.IsAuthenticated, ) #Is visitor/manager ?
+
+    def get_serializer(self, *args, **kwargs):
+        if self.request.method == 'POST':
+            return BookTakeoutCreateSerializer()
+        return BookTakeoutSerializer()
 
     def get_queryset(self):
         return BookTakeout.objects.filter(user=self.request.user).all()

@@ -25,7 +25,7 @@ class BookViewSet(viewsets.ModelViewSet):
             return Response(enable.errors, status=status.HTTP_400_BAD_REQUEST)
         turn = enable.data["enable"]
         try:
-            book = Book.objects.get(pk)
+            book = Book.objects.get(id=pk)
         except:
             return Response({"detail": "not found book with that id"}, status=status.HTTP_404_NOT_FOUND)
         user = self.request.user

@@ -1,13 +1,13 @@
 from rest_framework import views, viewsets, permissions, status, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .models import Event
+from .models import Event, EventFeedback, Tag, EventSignup
 from django.utils import timezone
-from .serializers import EventSerializer
+from .serializers import EventFeedbackSeriazlier, EventSerializer, TagSerializer
 from books.serializers import SwitchSerializer
 from users.serializers import UserSerializer
 
-class EventViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin):
+class EventViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = (permissions.AllowAny, ) #ManagerOrReadOnly in future
@@ -48,12 +48,49 @@ class EventViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin, mixins.Up
             return Response(enable.errors, status=status.HTTP_400_BAD_REQUEST)
         event = Event.objects.get(id=pk)
         turn = enable.data["enable"]
-        if turn and not event.participants.contains(request.user):
-            if event.spots - event.participants.count() > 0:
+        if turn and not event.signups.filter(user=request.user).exists():
+            if event.spots - event.signups.count() > 0:
+                EventSignup.objects.create(user=request.user, event=event)
                 event.participants.add(request.user)
             else:
                 return Response({"detail": "No more spots left!"}, status=status.HTTP_400_BAD_REQUEST)
         elif not turn:
-            event.participants.remove(request.user)
+            event.signups.filter(user=request.user).remove()
         
         return Response({"enable": turn, "spots_left": event.spots - event.participants.all().count()})
+
+    @action(methods=["GET"], url_path="feedbacks", detail=True, serializer_class=EventFeedbackSeriazlier, permission_classes=(permissions.IsAuthenticated, )) # IsManagerOnly
+    def get_feedbacks(self, request, pk):
+        event = Event.objects.get(id=pk)
+        feedbacks = EventFeedback.objects.filter(event=event).all()
+        return Response(self.get_serializer(instance=feedbacks, many=True).data)
+
+class EventFeedbackViewSet(viewsets.GenericViewSet, mixins.UpdateModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin):
+    permission_classes = (permissions.IsAuthenticated, ) #ManagerOrOwnerOrReadOnly
+    queryset = EventFeedback.objects.all()
+    serializer_class = EventFeedbackSeriazlier    
+
+    def create(self, request, *args, **kwargs):
+        feedback = self.get_serializer(data=request.data)
+
+        if not feedback.is_valid():
+            return Response(feedback.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        event = feedback.validated_data['event']
+        
+        today = timezone.now()
+        if event.time > today:
+            return Response({"detail": "Нельзя оставить отзыв на мероприятие, которого еще не было!"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if not request.user.events.filter(event=event).exists():
+            return Response({"detail": "Нельзя оставить отзыв на мероприятие, на котором вас не было!"}, status=status.HTTP_400_BAD_REQUEST)
+
+        feedback.save(user=request.user)
+
+        return Response(feedback.data)
+
+
+class TagViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+    permission_classes = (permissions.AllowAny, ) #потом сделать только для MaganerOrReadOnly

@@ -16,7 +16,8 @@ urlpatterns = [
     path("", include("books.urls")),
     path("", include(router.urls)),
     path("", include("events.urls")),
-    path("", include("manager.urls"))
+    path("", include("manager.urls")),
+    path("", include("coworking.urls"))
 ]
 
 
@@ -29,7 +30,7 @@ schema_view = get_schema_view(
         contact=openapi.Contact(email="wedyza@mail.ru"),
         license=openapi.License(name="BSD License"),
     ),
-    url="http://188.68.80.72:8000" if settings.CONTAINER_LAUNCHER else "http://localhost:8000",
+    url=f"http://{settings.SERVER_ENDPOINT}:8080" if settings.CONTAINER_LAUNCHER else "http://localhost:8000",
     public=True,
     permission_classes=(permissions.AllowAny,),
 )

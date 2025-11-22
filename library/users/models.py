@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.core.validators import RegexValidator, MaxValueValidator, MinValueValidator
 import uuid
-from events.models import Event
+# from events.models import Event
 
 
 class UserManager(BaseUserManager):  # pragma: no cover
@@ -51,23 +51,29 @@ class CustomAbstractUser(AbstractUser):
     date_joined = None
     first_name = models.CharField("Имя", max_length=30, null=False)
     last_name = models.CharField("Фамилия", max_length=30, null=False)
-    middle_name = models.CharField("Отчество", max_length=30, null=True)
     user_type = models.TextField("Тип пользователя", choices=UserType.choices, default=UserType.VISITOR)
-    birth_date = models.DateField("Дата рождения", null=False)
     lib_code = models.CharField('Номер читательского билета', unique=True, null=False,
             validators=[RegexValidator(
                 regex=r'^\d{8}$',
                 message='Введите уникальное число из 8 цифр',
                 code='invalid_eight_digit_number'
             )])
+    experience = models.IntegerField("Опыт", default=0, validators=[
+        MinValueValidator(0)
+    ], null=False)
     password = None
 
-    events = models.ManyToManyField(
-        Event,
-        related_name="participants",
-        related_query_name="events",
-        verbose_name="Мероприятия"
-    )
+    @property
+    def level(self):
+        level_gaps = []
+        return 0
+
+    # events = models.ManyToManyField(
+    #     Event,
+    #     related_name="participants",
+    #     related_query_name="events",
+    #     verbose_name="Мероприятия"
+    # )
 
     def __str__(self):
         return self.email
