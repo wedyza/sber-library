@@ -12,6 +12,7 @@ import { fetchUserInfo } from './features/user/userSlice'
 import EventsPage from './pages/EventsPage/EventsPage'
 import EventPage from './pages/EventPage/EventPage'
 import ProtectedRoute from './components/ProtectedRoute'
+import ProfilePage from './pages/ProfilePage/ProfilePage'
 
 function App() {
   const token = useAppSelector(state => state.auth.token)
@@ -28,12 +29,15 @@ function App() {
       <Route element={<UserLayout />}>
       <Route element={<ProtectedRoute allowedRoles={['Читатель']} />}>
         <Route path="/" element={<MainPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/event/:id" element={<EventPage />} />
       </Route>
+      <Route element={<ProtectedRoute onlyGuest />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/verify-code" element={<VerifyPage />} />
+      </Route>
       </Route>
     </Routes>
   )

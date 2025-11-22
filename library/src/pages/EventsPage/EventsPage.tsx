@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import EventCard from '../../components/EventCard/EventCard';
 import './EventsPage.scss'
 import { fetchActualEvents, fetchUserActualEvents, fetchUserPassedEvents, type EventItem } from '../../features/events/eventsSlice';
+import EmptyList from '../../components/EmptyList/EmptyList';
 
 const EventsPage = () => {
   const actualEvents = useAppSelector(state => state.events.actualEvents);
@@ -56,7 +57,7 @@ const EventsPage = () => {
                     <EventCard key={event.id} event={event} onInfoClick={handleInfoClick} />
                   ))
                 ) : (
-                  <div className="no-events">Нет событий</div>
+                  <EmptyList text='Вы еще не записались ни на одно событие :(' />
                 )}
               </div>
             </div>
@@ -88,7 +89,7 @@ const EventsPage = () => {
                     <EventCard key={event.id} event={event} onInfoClick={handleInfoClick} />
                   ))
                 ) : (
-                  <div className="no-events">Нет событий</div>
+                  <EmptyList text='Вы еще не посещали ни одного события  :(' />
                 )}
               </div>
             </div>
@@ -114,7 +115,7 @@ const EventsPage = () => {
                   <EventCard key={event.id} event={event} onInfoClick={handleInfoClick} />
                 ))
               ) : (
-                <div className="no-events">Нет будущих событий</div>
+                <EmptyList text='Таких мероприятий нет   :(' />
               )}
             </div>
           </div>

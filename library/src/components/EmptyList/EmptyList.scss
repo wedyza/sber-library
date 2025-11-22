@@ -1,0 +1,19 @@
+.empty-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.empty-list_icon {
+  height: 156px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-list_text {
+  width: 50%;
+  text-align: center;
+}

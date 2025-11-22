@@ -6,12 +6,12 @@ interface UserData {
   id?: number;
   firstName: string;
   lastName: string;
-  middle_name?: string;
+  //middle_name?: string;
   email: string;
   sex?: 'MALE' | 'FEMALE' | undefined;
   user_type: 'Читатель' | 'Администратор' | 'Библиотекарь' | undefined;
   avatar?: string;
-  birth_date?: string;
+  //birth_date?: string;
 }
 
 interface UserState {
@@ -40,50 +40,38 @@ export const fetchUserInfo = createAsyncThunk(
   }
 );
 
-// export const updateUserInfo = createAsyncThunk(
-//   'user/updateUserInfo',
-//   async (
-//     updatedData: {
-//       first_name: string;
-//       last_name: string;
-//       email: string;
-//       gender: 'MALE' | 'FEMALE';
-//     },
-//     { rejectWithValue, getState }: any
-//   ) => {
-//     const token = getState().auth.token;
-//     try {
-//       const res = await api.patch('/users/me/', updatedData, {
-//         headers: {
-//           Authorization: `Token ${token}`,
-//         },
-//       });
-//       return res.data;
-//     } catch (err: any) {
-//       return rejectWithValue(err.response?.data?.message || 'Ошибка при обновлении данных');
-//     }
-//   }
-// );
+export const updateUserInfo = createAsyncThunk(
+  'user/updateUserInfo',
+  async (
+    updatedData: {
+      first_name: string;
+      last_name: string;
+    },
+    { rejectWithValue }: any
+  ) => {
+    try {
+      const res = await api.patch('/users/me/', updatedData);
+      return res.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data?.message || 'Ошибка при обновлении данных');
+    }
+  }
+);
 
-// export const updateUserAvatar = createAsyncThunk(
-//   'user/updateUserAvatar',
-//   async (avatarFile: File, { rejectWithValue, getState }: any) => {
-//     const token = getState().auth.token;
-//     const formData = new FormData();
-//     formData.append('avatar', avatarFile);
+export const updateUserAvatar = createAsyncThunk(
+  'user/updateUserAvatar',
+  async (avatarFile: File, { rejectWithValue }: any) => {
+    const formData = new FormData();
+    formData.append('avatar', avatarFile);
 
-//     try {
-//       const res = await api.patch('/users/me/', formData, {
-//         headers: {
-//           Authorization: `Token ${token}`,
-//         },
-//       });
-//       return res.data.avatar;
-//     } catch (err: any) {
-//       return rejectWithValue(err.response?.data?.message || 'Ошибка при обновлении аватара');
-//     }
-//   }
-// );
+    try {
+      const res = await api.patch('/users/me/', formData);
+      return res.data.avatar;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data?.message || 'Ошибка при обновлении аватара');
+    }
+  }
+);
 
 const userSlice = createSlice({
   name: 'user',
@@ -103,15 +91,15 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchUserInfo.fulfilled, (state, action) => {
-        const { first_name, last_name, email, middle_name, avatar, user_type, birth_date } = action.payload;
+        const { first_name, last_name, email, avatar, user_type } = action.payload;
         state.user = {
           firstName: first_name,
           lastName: last_name,
-          middle_name,
+          //middle_name,
           email,
           user_type,
           avatar,
-          birth_date,
+          //birth_date,
         };
         state.loading = false;
         state.loaded = true;
@@ -121,26 +109,31 @@ const userSlice = createSlice({
         state.error = action.payload as string;
         state.loaded = true;
       })
-      // .addCase(updateUserInfo.fulfilled, (state, action) => {
-      //   const { first_name, last_name, email, sex, user_type } = action.payload;
-      //   state.firstName = first_name;
-      //   state.lastName = last_name;
-      //   state.email = email;
-      //   state.user_type = user_type;
-      //   state.gender = sex;
-      //   state.loading = false;
-      // })
-      // .addCase(updateUserInfo.pending, (state) => {
-      //   state.loading = true;
-      // })
-      // .addCase(updateUserInfo.rejected, (state, action) => {
-      //   state.loading = false;
-      //   state.error = action.payload as string;
-      // })
-      // .addCase(updateUserAvatar.fulfilled, (state, action) => {
-      //   state.avatar = action.payload;
-      //   state.loading = false;
-      // })
+      .addCase(updateUserInfo.fulfilled, (state, action) => {
+        const { first_name, last_name, email, user_type, avatar } = action.payload;
+        state.user = {
+          firstName: first_name,
+          lastName: last_name,
+          //middle_name,
+          email,
+          user_type,
+          avatar,
+          //birth_date,
+        };
+      })
+      .addCase(updateUserInfo.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateUserInfo.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(updateUserAvatar.fulfilled, (state, action) => {
+        if (state.user) {
+          state.user.avatar = action.payload;
+        }
+        state.loading = false;
+      })
       .addCase(logout, (state) => {
         state.user = null;
       });

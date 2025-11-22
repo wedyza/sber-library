@@ -34,7 +34,7 @@ export const createOtp = createAsyncThunk(
 export const registerUser = createAsyncThunk(
   'auth/registerUser',
   async (
-    { email, firstName, lastName, middleName, birthDate}: { email: string; firstName: string; lastName: string; middleName: string; birthDate: string },
+    { email, firstName, lastName/*, middleName, birthDate*/}: { email: string; firstName: string; lastName: string; /*middleName: string; birthDate: string*/ },
     { rejectWithValue }
   ) => {
     try {
@@ -42,8 +42,8 @@ export const registerUser = createAsyncThunk(
         email,
         first_name: firstName,
         last_name: lastName,
-        middle_name: middleName,
-        birth_date: birthDate,
+        // middle_name: middleName,
+        // birth_date: birthDate,
       });
       return response.data;
     } catch (error: any) {

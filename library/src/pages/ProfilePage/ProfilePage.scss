@@ -1,0 +1,36 @@
+.profile-info_item {
+  background-color: var(--white2);
+  height: 50px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  padding: 0 22px;
+}
+
+.profile-info_item-unactive {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 35px;
+}
+
+.profile-head {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.profile-head_avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+}

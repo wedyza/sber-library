@@ -11,9 +11,9 @@ const RegisterPage = () => {
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [middleName, setMiddleName] = useState('');
+  //const [middleName, setMiddleName] = useState('');
   const [email, setEmail] = useState('');
-  const [birthDate, setBirthDate] = useState('');
+  //const [birthDate, setBirthDate] = useState('');
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,8 +22,8 @@ const RegisterPage = () => {
       email,
       firstName,
       lastName,
-      middleName: middleName.length > 0 ? middleName : '',
-      birthDate: birthDate || ''
+      // middleName: middleName.length > 0 ? middleName : '',
+      // birthDate: birthDate || ''
     }));
   };
 
@@ -80,7 +80,7 @@ const RegisterPage = () => {
             onChange={(e) => setFirstName(e.target.value)}
           />
         </div>
-        <div className="login_input-group">
+        {/* <div className="login_input-group">
           <span className='login_label med-14'>
             Отчество
           </span>
@@ -103,7 +103,7 @@ const RegisterPage = () => {
             value={birthDate}
             onChange={(e) => setBirthDate(e.target.value)}
           />
-        </div>
+        </div> */}
       </div>
       <button 
         className='login_btn semibold-18 btn-accent'
